@@ -1,15 +1,10 @@
 import io.qameta.allure.Description;
-import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.notNullValue;
 
 @RunWith(Parameterized.class)
 public class OrderCreationTest {
@@ -23,6 +18,8 @@ public class OrderCreationTest {
     private final String deliveryDate;
     private final String comment;
     private final String[] color;
+
+    OrderApi orderApi = new OrderApi();
 
 
     public OrderCreationTest(String firstName, String lastName, String address, String metroStation, String phone, int rentTime, String deliveryDate, String comment, String[] color) {
@@ -50,28 +47,16 @@ public class OrderCreationTest {
     @DisplayName("Order creation")
     @Description("Positive test of creating an order with different scooter color")
     public void possibleToMakeOrderTest() {
-        RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru/";
         OrderCreationData orderCreationData = new OrderCreationData(firstName, lastName, address, metroStation, phone, rentTime, deliveryDate, comment, color);
-        Response response = sendPostRequestToCreateOrder(orderCreationData);
-        checkStatusCodeAfterCreationOrder(response);
+        Response response = orderApi.sendPostRequestToCreateOrder(orderCreationData);
+        orderApi.checkStatusCodeAfterCreationOrder(response);
+        orderApi.checkOrderTrack(response);
 
     }
 
-    @Step("Seng POST-request to /api/v1/orders to create an Order")
-    public Response sendPostRequestToCreateOrder(OrderCreationData orderCreationData) {
-        Response response =
-                given()
-                        .header("Content-type", "application/json")
-                        .and()
-                        .body(orderCreationData)
-                        .when()
-                        .post("/api/v1/orders");
-        return response;
-    }
-
-    @Step("Check Status code and Response text after creation an Order")
-    public void checkStatusCodeAfterCreationOrder(Response response) {
-        response.then().assertThat().body("track", notNullValue()).and().statusCode(201);
+    @After
+    public void deleteOrder() {
+        orderApi.deleteOrder();
     }
 
 }
