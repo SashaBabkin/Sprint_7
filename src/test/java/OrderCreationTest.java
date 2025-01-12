@@ -49,8 +49,7 @@ public class OrderCreationTest {
     public void possibleToMakeOrderTest() {
         OrderCreationData orderCreationData = new OrderCreationData(firstName, lastName, address, metroStation, phone, rentTime, deliveryDate, comment, color);
         Response response = orderApi.sendPostRequestToCreateOrder(orderCreationData);
-        orderApi.checkStatusCodeAfterCreationOrder(response);
-        orderApi.checkOrderTrack(response);
+        orderApi.checkResponseAfterCreationOrder(response);
 
     }
 

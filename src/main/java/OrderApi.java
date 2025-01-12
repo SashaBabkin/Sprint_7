@@ -28,16 +28,10 @@ public class OrderApi extends BaseHttpClient{
         return response;
     }
 
-    //Проверка кода ответа при успешном создании заказа
-    @Step("Check Status code after creation an Order")
-    public void checkStatusCodeAfterCreationOrder(Response response) {
-        response.then().assertThat().statusCode(201);
-    }
-
-    //Проверка, что тело ответа содержит track после успешного создания заказа
-    @Step("Check that Response body contains track number")
-    public void checkOrderTrack(Response response) {
-        response.then().assertThat().body("track", notNullValue());
+    //Проверка кода ответа и тела ответа при успешном создании заказа
+    @Step("Check Status code and Response text after creation an Order")
+    public void checkResponseAfterCreationOrder(Response response) {
+        response.then().assertThat().statusCode(201).and().body("track", notNullValue());
         int trackNumber = response.then().extract().body().path("track");
         this.trackNumber = trackNumber;
     }
@@ -53,16 +47,10 @@ public class OrderApi extends BaseHttpClient{
         return response;
     }
 
-    //Проверка кода ответа после запроса на получение списка заказов
+    //Проверка кода ответа и тела ответа после запроса на получение списка заказов
     @Step("Check Status code and Response text after getting orders list")
-    public void checkStatusCodeOfGettingOrdersList(Response response) {
-        response.then().assertThat().statusCode(200);
-    }
-
-    //Проверка, что тело ответа возвращает список заказов после запроса на получение списка заказов
-    @Step("Check Response text after getting orders list")
-    public void checkResponseTextAfterGettingOrdersList(Response response) {
-        response.then().assertThat().body("orders", notNullValue());
+    public void checkResponseOfGettingOrdersList(Response response) {
+        response.then().assertThat().statusCode(200).and().body("orders", notNullValue());
     }
 
     //Удаление заказа

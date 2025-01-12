@@ -31,8 +31,7 @@ public class GetOrdersListTest {
     @Description("Positive test of getting all created orders")
     public void getOrdersListTest() {
         Response response = orderApi.sendGetRequestToGetOrdersList();
-        orderApi.checkStatusCodeOfGettingOrdersList(response);
-        orderApi.checkResponseTextAfterGettingOrdersList(response);
+        orderApi.checkResponseOfGettingOrdersList(response);
     }
 
     @After

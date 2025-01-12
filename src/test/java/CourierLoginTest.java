@@ -29,8 +29,7 @@ public class CourierLoginTest {
     public void loginWithValidDataTest() {
         CourierLoginData courierLoginData = new CourierLoginData(login, password);
         Response response = courierApi.sendPostRequestToLoginCourier(courierLoginData);
-        courierApi.checkStatusCodeAfterCourierLogin(response);
-        courierApi.checkResponseTextAfterCourierLogin(response);
+        courierApi.checkResponseAfterCourierLogin(response);
     }
 
     @Test
@@ -39,8 +38,7 @@ public class CourierLoginTest {
     public void errorWhenLoginMissingTest() {
         CourierLoginData courierLoginData = new CourierLoginData(noLogin, password);
         Response response = courierApi.sendPostRequestToLoginCourier(courierLoginData);
-        courierApi.checkStatusCodeAfterLoggingInCourierWithLoginOrPasswordMissing(response);
-        courierApi.checkResponseTextAfterLoggingInCourierWithLoginOrPasswordMissing(response);
+        courierApi.checkResponseAfterLoggingInCourierWithLoginOrPasswordMissing(response);
     }
 
     @Test
@@ -49,8 +47,7 @@ public class CourierLoginTest {
     public void errorWhenPasswordMissingTest() {
         CourierLoginData courierLoginData = new CourierLoginData(login, noPassword);
         Response response = courierApi.sendPostRequestToLoginCourier(courierLoginData);
-        courierApi.checkStatusCodeAfterLoggingInCourierWithLoginOrPasswordMissing(response);
-        courierApi.checkResponseTextAfterLoggingInCourierWithLoginOrPasswordMissing(response);
+        courierApi.checkResponseAfterLoggingInCourierWithLoginOrPasswordMissing(response);
     }
 
     @Test
@@ -59,8 +56,7 @@ public class CourierLoginTest {
     public void errorWhenLoginAndPasswordMissingTest() {
         CourierLoginData courierLoginData = new CourierLoginData(noLogin, noPassword);
         Response response = courierApi.sendPostRequestToLoginCourier(courierLoginData);
-        courierApi.checkStatusCodeAfterLoggingInCourierWithLoginOrPasswordMissing(response);
-        courierApi.checkResponseTextAfterLoggingInCourierWithLoginOrPasswordMissing(response);
+        courierApi.checkResponseAfterLoggingInCourierWithLoginOrPasswordMissing(response);
     }
 
     @Test
@@ -69,8 +65,7 @@ public class CourierLoginTest {
     public void errorWhenLoginWrongTest() {
         CourierLoginData courierLoginData = new CourierLoginData(wrongLogin, password);
         Response response = courierApi.sendPostRequestToLoginCourier(courierLoginData);
-        courierApi.checkStatusCodeAfterLoggingInCourierWithWrongLoginOrPassword(response);
-        courierApi.checkResponseTextAfterLoggingInCourierWithWrongLoginOrPassword(response);
+        courierApi.checkResponseAfterLoggingInCourierWithWrongLoginOrPassword(response);
     }
 
     @Test
@@ -79,8 +74,7 @@ public class CourierLoginTest {
     public void errorWhenPasswordWrongTest() {
         CourierLoginData courierLoginData = new CourierLoginData(login, wrongPassword);
         Response response = courierApi.sendPostRequestToLoginCourier(courierLoginData);
-        courierApi.checkStatusCodeAfterLoggingInCourierWithWrongLoginOrPassword(response);
-        courierApi.checkResponseTextAfterLoggingInCourierWithWrongLoginOrPassword(response);
+        courierApi.checkResponseAfterLoggingInCourierWithWrongLoginOrPassword(response);
     }
 
     @Test
@@ -89,8 +83,7 @@ public class CourierLoginTest {
     public void errorWhenLoginAndPasswordWrongTest() {
         CourierLoginData courierLoginData = new CourierLoginData(wrongLogin, wrongPassword);
         Response response = courierApi.sendPostRequestToLoginCourier(courierLoginData);
-        courierApi.checkStatusCodeAfterLoggingInCourierWithWrongLoginOrPassword(response);
-        courierApi.checkResponseTextAfterLoggingInCourierWithWrongLoginOrPassword(response);
+        courierApi.checkResponseAfterLoggingInCourierWithWrongLoginOrPassword(response);
     }
 
 

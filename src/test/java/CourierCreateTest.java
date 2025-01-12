@@ -20,8 +20,7 @@ public class CourierCreateTest {
     public void courierCreatedWithValidDataTest() {
         CourierCreateData courierCreateData = new CourierCreateData(login, password, firstName);
         Response response = courierApi.sendPostRequestToCreateCourier(courierCreateData);
-        courierApi.checkStatusCodeAfterCreatingCourier(response);
-        courierApi.checkResponseTextAfterCreatingCourier(response);
+        courierApi.checkResponseAfterCreatingCourier(response);
 
     }
 
@@ -32,8 +31,7 @@ public class CourierCreateTest {
         CourierCreateData courierCreateData = new CourierCreateData(login, password, firstName);
         courierApi.sendPostRequestToCreateCourier(courierCreateData);
         Response response = courierApi.sendPostRequestToCreateCourier(courierCreateData);
-        courierApi.checkStatusCodeAfterCreatingTwoIdenticalCouriers(response);
-        courierApi.checkResponseTextAfterCreatingTwoIdenticalCouriers(response);
+        courierApi.checkResponseAfterCreatingTwoIdenticalCouriers(response);
 
     }
 
@@ -43,8 +41,7 @@ public class CourierCreateTest {
     public void notPossibleToCreateCourierWithLoginMissingTest() {
         CourierCreateData courierCreateData = new CourierCreateData(noLogin, password, firstName);
         Response response = courierApi.sendPostRequestToCreateCourier(courierCreateData);
-        courierApi.checkStatusCodeAfterCreatingCourierWithLoginOrPasswordMissing(response);
-        courierApi.checkResponseTextAfterCreatingCourierWithLoginOrPasswordMissing(response);
+        courierApi.checkResponseAfterCreatingCourierWithLoginOrPasswordMissing(response);
     }
 
     @Test
@@ -53,8 +50,7 @@ public class CourierCreateTest {
     public void notPossibleToCreateCourierWithPasswordMissingTest() {
         CourierCreateData courierCreateData = new CourierCreateData(login, noPassword, firstName);
         Response response = courierApi.sendPostRequestToCreateCourier(courierCreateData);
-        courierApi.checkStatusCodeAfterCreatingCourierWithLoginOrPasswordMissing(response);
-        courierApi.checkResponseTextAfterCreatingCourierWithLoginOrPasswordMissing(response);
+        courierApi.checkResponseAfterCreatingCourierWithLoginOrPasswordMissing(response);
     }
 
     @Test
@@ -63,8 +59,7 @@ public class CourierCreateTest {
     public void notPossibleToCreateCourierWithLoginAndPasswordMissingTest() {
         CourierCreateData courierCreateData = new CourierCreateData(noLogin, noPassword, firstName);
         Response response = courierApi.sendPostRequestToCreateCourier(courierCreateData);
-        courierApi.checkStatusCodeAfterCreatingCourierWithLoginOrPasswordMissing(response);
-        courierApi.checkResponseTextAfterCreatingCourierWithLoginOrPasswordMissing(response);
+        courierApi.checkResponseAfterCreatingCourierWithLoginOrPasswordMissing(response);
     }
 
     @After

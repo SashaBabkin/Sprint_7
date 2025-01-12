@@ -26,40 +26,22 @@ public class CourierApi extends BaseHttpClient {
         return response;
     }
 
-    //Проверка кода ответа после создания курьера
-    @Step("Check Status code after creating a Courier")
-    public void checkStatusCodeAfterCreatingCourier(Response response) {
-        response.then().assertThat().statusCode(201);
+    //Проверка кода ответа и тела ответа после создания курьера
+    @Step("Check Status code and Response text after creating a Courier")
+    public void checkResponseAfterCreatingCourier(Response response) {
+        response.then().assertThat().statusCode(201).and().body("ok", equalTo(true));
     }
 
-    //Проверка тела ответа после создания курьера
-    @Step("Check Response text after creating a Courier")
-    public void checkResponseTextAfterCreatingCourier(Response response) {
-        response.then().assertThat().body("ok", equalTo(true));
+    //Проверка кода ответа и тела ответа после попытки создания двух одинаковых курьеров
+    @Step("Check Status code and Response text after attempt creating two identical couriers")
+    public void checkResponseAfterCreatingTwoIdenticalCouriers(Response response) {
+        response.then().assertThat().statusCode(409).and().body("message", equalTo("Этот логин уже используется"));
     }
 
-    //Проверка кода ответа после попытки создания двух одинаковых курьеров
-    @Step("Check Status code after attempt creating two identical couriers")
-    public void checkStatusCodeAfterCreatingTwoIdenticalCouriers(Response response) {
-        response.then().assertThat().statusCode(409);
-    }
-
-    //Проверка тела ответа после попытки создания двух одинаковых курьеров
-    @Step("Check Response text after attempt creating two identical couriers")
-    public void checkResponseTextAfterCreatingTwoIdenticalCouriers(Response response) {
-        response.then().assertThat().body("message", equalTo("Этот логин уже используется"));
-    }
-
-    //Проверка кода ответа после попытки создания курьера если не переданы все обязательные поля
-    @Step("Check Status code after attempt creating a Courier with login or password missing")
-    public void checkStatusCodeAfterCreatingCourierWithLoginOrPasswordMissing(Response response) {
-        response.then().assertThat().statusCode(400);
-    }
-
-    //Проверка тела ответа после попытки создания курьера если не переданы все обязательные поля
-    @Step("Check Response text after attempt creating a Courier with login or password missing")
-    public void checkResponseTextAfterCreatingCourierWithLoginOrPasswordMissing(Response response) {
-        response.then().assertThat().body("message", equalTo("Недостаточно данных для создания учетной записи"));
+    //Проверка кода ответа и тела ответа после попытки создания курьера если не переданы все обязательные поля
+    @Step("Check Status code and Response text after attempt creating a Courier with login or password missing")
+    public void checkResponseAfterCreatingCourierWithLoginOrPasswordMissing(Response response) {
+        response.then().assertThat().statusCode(400).and().body("message", equalTo("Недостаточно данных для создания учетной записи"));
     }
 
     //Логин курьера
@@ -74,40 +56,22 @@ public class CourierApi extends BaseHttpClient {
         return response;
     }
 
-    //Проверка кода ответа после успешного логина курьера
-    @Step("Check Status code after successful courier login")
-    public void checkStatusCodeAfterCourierLogin(Response response) {
-        response.then().assertThat().statusCode(200);
+    //Проверка кода ответа и тела ответа после успешного логина курьера
+    @Step("Check Status code and Response text after successful courier login")
+    public void checkResponseAfterCourierLogin(Response response) {
+        response.then().assertThat().statusCode(200).and().body("id", notNullValue());
     }
 
-    //Проверка тела ответа после успешного логина курьера
-    @Step("Check Response text after successful courier login")
-    public void checkResponseTextAfterCourierLogin(Response response) {
-        response.then().assertThat().body("id", notNullValue());
+    //Проверка кода ответа и тела ответа после попытки авторизации курьера если не переданы все обязательные поля
+    @Step("Check Status code and Response text after attempt logging in a Courier with login or/and password missing")
+    public void checkResponseAfterLoggingInCourierWithLoginOrPasswordMissing(Response response) {
+        response.then().assertThat().statusCode(400).and().body("message", equalTo("Недостаточно данных для входа"));
     }
 
-    //Проверка кода ответа после попытки авторизации курьера если не переданы все обязательные поля
-    @Step("Check Status code after attempt logging in a Courier with login or/and password missing")
-    public void checkStatusCodeAfterLoggingInCourierWithLoginOrPasswordMissing(Response response) {
-        response.then().assertThat().statusCode(400);
-    }
-
-    //Проверка тела ответа после попытки авторизации курьера если не переданы все обязательные поля
-    @Step("Check Response text after attempt logging in a Courier with login or/and password missing")
-    public void checkResponseTextAfterLoggingInCourierWithLoginOrPasswordMissing(Response response) {
-        response.then().assertThat().body("message", equalTo("Недостаточно данных для входа"));
-    }
-
-    //Проверка кода ответа после попытки авторизации курьера с неправильно указанным логином и/или паролем
-    @Step("Check Status code after attempt logging in a Courier with wrong login or/and password")
-    public void checkStatusCodeAfterLoggingInCourierWithWrongLoginOrPassword(Response response) {
-        response.then().assertThat().statusCode(404);
-    }
-
-    //Проверка тела ответа после попытки авторизации курьера с неправильно указанным логином и/или паролем
-    @Step("Check Response text after attempt logging in a Courier with wrong login or/and password")
-    public void checkResponseTextAfterLoggingInCourierWithWrongLoginOrPassword(Response response) {
-        response.then().assertThat().body("message", equalTo("Учетная запись не найдена"));
+    //Проверка кода ответа и тела ответа после попытки авторизации курьера с неправильно указанным логином и/или паролем
+    @Step("Check Status code and Response text after attempt logging in a Courier with wrong login or/and password")
+    public void checkResponseAfterLoggingInCourierWithWrongLoginOrPassword(Response response) {
+        response.then().assertThat().statusCode(404).and().body("message", equalTo("Учетная запись не найдена"));
     }
 
     //Удаление курьера
